@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Food Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>🍽️ Food Delivery</h1>
+        <nav>
+            <a href="dashboard.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">My Orders</a>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #7f8c8d;">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Our Partner Restaurants</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">
+            Order from the best restaurants in town.
+        </p>
+
+        <div id="restaurant-list"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            checkAuth();
+            const restaurants = await fetchRestaurants();
+            const list = document.getElementById('restaurant-list');
+
+            if (restaurants.length === 0) {
+                list.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No restaurants found. Please ask an admin to add some.</p>';
+                return;
+            }
+
+            // Restaurant Images for demo
+            const restImages = [
+                "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80",
+                "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80",
+                "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80"
+            ];
+
+            restaurants.forEach((r, idx) => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                const img = restImages[idx % restImages.length];
+
+                card.innerHTML = `
+                    <div class="menu-img" style="background-image: url('${img}'); height: 200px;"></div>
+                    <div class="menu-content" style="text-align: left;">
+                        <div class="menu-title" style="margin-bottom: 0.2rem;">${r.name}</div>
+                        <div class="menu-desc">${r.description || 'Delicious food awaits!'}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span style="color: #f1c40f; font-size: 0.9rem;">★★★★☆</span>
+                            <a href="restaurant.html?id=${r.id}" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;">View Menu</a>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        });
+    </script>
+</body>
+
+</html>

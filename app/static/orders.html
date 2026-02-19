@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Food Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>🍽️ Food Delivery</h1>
+        <nav>
+            <a href="dashboard.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">My Orders</a>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #7f8c8d;">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Order History</h2>
+        <div id="orders-list"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            checkAuth();
+            const orders = await fetchOrders();
+            const list = document.getElementById('orders-list');
+
+            if (orders.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: var(--text-light);">No past orders found.</p>';
+                return;
+            }
+
+            orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            orders.forEach(order => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.style.borderLeft = `5px solid ${getColorForStatus(order.status)}`;
+
+                div.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="margin: 0; font-family: 'Merriweather', serif; color: var(--secondary-color);">Order #${order.id}</h3>
+                            <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-light);">${new Date(order.created_at).toLocaleString()}</p>
+                        </div>
+                        <span style="background: ${getColorForStatus(order.status)}20; color: ${getColorForStatus(order.status)}; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">${order.status.replace('_', ' ')}</span>
+                    </div>
+                    
+                    <div style="border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600; color: var(--text-color);">Total Amount</span>
+                        <div>
+                            <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary-color); margin-right: 1rem;">$${order.total_price.toFixed(2)}</span>
+                            <button class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="window.location.href='track_order.html?id=${order.id}'">Track</button>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        });
+
+        function getColorForStatus(status) {
+            switch (status) {
+                case 'pending': return '#f39c12'; // Orange/Yellow
+                case 'accepted': return '#3498db'; // Blue
+                case 'preparing': return '#d35400'; // Darker Orange
+                case 'out_for_delivery': return '#9b59b6'; // Purple
+                case 'delivered': return '#27ae60'; // Green
+                case 'cancelled': return '#c0392b'; // Red
+                default: return '#95a5a6'; // Gray
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Food Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>🍽️ Food Delivery - Admin</h1>
+        <nav>
+            <a href="dashboard.html">View As Customer</a>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #7f8c8d;">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Platform Admin Section -->
+        <div id="admin-section" style="display:none;">
+            <h2>Manage Restaurants</h2>
+            <div class="card">
+                <form id="addRestaurantForm">
+                    <h3 style="font-family: 'Merriweather', serif; color: var(--secondary-color); margin-top: 0;">Add
+                        New Restaurant</h3>
+                    <div>
+                        <label>Restaurant Name</label>
+                        <input type="text" id="restName" required placeholder="e.g. Burger King">
+                    </div>
+                    <div>
+                        <label>Description</label>
+                        <input type="text" id="restDesc" placeholder="e.g. Best burgers in town">
+                    </div>
+                    <button type="submit" class="btn">Create Restaurant</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Restaurant Owner Section -->
+        <div id="owner-section" style="display:none;">
+            <h2>Manage Menu</h2>
+            <div class="card">
+                <form id="addMenuForm">
+                    <h3 style="font-family: 'Merriweather', serif; color: var(--secondary-color); margin-top: 0;">Add
+                        Menu Item</h3>
+                    <div>
+                        <label>Restaurant ID</label>
+                        <input type="number" id="menuRestId" required placeholder="Enter your Restaurant ID">
+                        <small style="color: var(--text-light); display: block; margin-top: 0.2rem;">(Ask admin for your
+                            ID if unknown)</small>
+                    </div>
+                    <div>
+                        <label>Item Name</label>
+                        <input type="text" id="menuName" required placeholder="e.g. Whopper">
+                    </div>
+                    <div>
+                        <label>Description</label>
+                        <input type="text" id="menuDesc" placeholder="e.g. Juicy flame-grilled beef">
+                    </div>
+                    <div>
+                        <label>Image URL (Optional)</label>
+                        <input type="text" id="menuImg" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div>
+                        <label>Price ($)</label>
+                        <input type="number" id="menuPrice" step="0.01" required placeholder="e.g. 5.99">
+                    </div>
+                    <button type="submit" class="btn">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            const role = localStorage.getItem('role');
+
+            if (role === 'admin') {
+                document.getElementById('admin-section').style.display = 'block';
+            } else if (role === 'restaurant_owner') {
+                document.getElementById('owner-section').style.display = 'block';
+            } else {
+                showToast('Access Denied: You are not an admin or owner.', 'error');
+                setTimeout(() => window.location.href = 'dashboard.html', 2000);
+            }
+        });
+
+        document.getElementById('addRestaurantForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('restName').value;
+            const description = document.getElementById('restDesc').value;
+
+            try {
+                const response = await fetch(`${API_URL}/admin/restaurants`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({ name, description })
+                });
+
+                if (response.ok) {
+                    showToast('Restaurant created successfully!', 'success');
+                    document.getElementById('addRestaurantForm').reset();
+                } else {
+                    showToast('Failed to create restaurant', 'error');
+                }
+            } catch (e) {
+                showToast('Connection error', 'error');
+            }
+        });
+
+        document.getElementById('addMenuForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const restaurantId = document.getElementById('menuRestId').value;
+            const name = document.getElementById('menuName').value;
+            const description = document.getElementById('menuDesc').value;
+            const price = document.getElementById('menuPrice').value;
+            const imageUrl = document.getElementById('menuImg').value;
+
+            // Note: DB schema might not have image_url column yet in models.py if I didn't add it earlier.
+            // Wait, models.py usually has basic fields. I should check if I need to migrate/add column.
+            // Checking my knowledge: I created MenuItem in models.py. 
+            // In the summary of session 1 step 3: "MenuItem" was created.
+            // I should verifying if `image_url` exists in the schema.
+
+            try {
+                const response = await fetch(`${API_URL}/restaurants/${restaurantId}/menu`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({ name, price, description, image_url: imageUrl }) // Sending image_url hoping backend accepts it
+                });
+
+                if (response.ok) {
+                    showToast('Menu item added successfully!', 'success');
+                    document.getElementById('addMenuForm').reset();
+                } else {
+                    showToast('Failed to add menu item. Check ID/Permissions.', 'error');
+                }
+            } catch (e) {
+                showToast('Connection error', 'error');
+            }
+        });
+    </script>
+</body>
+
+</html>

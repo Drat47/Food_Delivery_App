@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        header nav {
+            gap: 1.5rem;
+        }
+
+        header nav a {
+            color: #fff;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .restaurant-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1504674900969-f2df05b3252d?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 0;
+        }
+
+        .restaurant-hero h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .restaurant-hero p {
+            font-size: 1.1rem;
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        .container {
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .menu-section-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .menu-section-header p {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .menu-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover .menu-img::after {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .menu-desc {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin: 0 0 1rem 0;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .menu-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .menu-price-symbol {
+            font-size: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+
+        #loading {
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .no-items {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .restaurant-hero h1 {
+                font-size: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .menu-section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>🍽️ Food Delivery</h1>
+        <nav>
+            <a href="dashboard.html">HOME</a>
+            <a href="#">OFFERS</a>
+            <a href="#">CONTACT</a>
+            <button class="btn header-btn btn-primary" onclick="window.location.href='cart.html'">🛒 CART</button>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #ffd700;">LOGOUT</a>
+        </nav>
+    </header>
+
+    <div class="restaurant-hero">
+        <h1 id="restaurant-title">Restaurant Menu</h1>
+        <p id="restaurant-desc">Discover delicious cuisines prepared with fresh ingredients</p>
+    </div>
+
+    <div class="container">
+        <a href="dashboard.html" class="back-btn">← Back to Restaurants</a>
+
+        <div class="menu-section-header">
+            <h2>Our Specialties</h2>
+            <p>Premium dishes crafted with care</p>
+        </div>
+
+        <div id="loading" style="text-align: center; margin-top: 3rem; padding: 3rem; font-size: 1.1rem; color: #667eea;">
+            <p>🍳 Loading delicious dishes...</p>
+        </div>
+
+        <div id="menu-grid" class="menu-grid"></div>
+
+        <div id="no-items" class="no-items" style="display: none;">
+            No menu items available yet. Please check back soon!
+        </div>
+    </div>
+
+    <script>
+        // Dish image mapping for different types of dishes
+        const dishImageMap = {
+            // Burgers
+            "burger": [
+                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80",
+                "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500&q=80",
+                "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&q=80"
+            ],
+            // Pizza
+            "pizza": [
+                "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&q=80",
+                "https://images.unsplash.com/photo-1528840042246-12123dd332d6?w=500&q=80",
+                "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=500&q=80"
+            ],
+            // Chicken dishes
+            "chicken": [
+                "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=500&q=80",
+                "https://images.unsplash.com/photo-1626082927389-6cd097cdc029?w=500&q=80",
+                "https://images.unsplash.com/photo-1598080049080-c895b2e6ab8b?w=500&q=80"
+            ],
+            // Indian curry
+            "curry": [
+                "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&q=80",
+                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80",
+                "https://images.unsplash.com/photo-1588166524941-3bf0c2fa7dab?w=500&q=80"
+            ],
+            // Biryani/Rice dishes
+            "rice": [
+                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80",
+                "https://images.unsplash.com/photo-1645112411341-6c4ee1ce4b2b?w=500&q=80",
+                "https://images.unsplash.com/photo-1534080564897-61794a9e9b1f?w=500&q=80"
+            ],
+            // Noodles/Chow Mein
+            "noodles": [
+                "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&q=80",
+                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80",
+                "https://images.unsplash.com/photo-1585937421924-7bfaba60b6f9?w=500&q=80"
+            ],
+            // Sushi/Raw fish
+            "sushi": [
+                "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=500&q=80",
+                "https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&q=80",
+                "https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&q=80"
+            ],
+            // Steak/Meat
+            "steak": [
+                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80",
+                "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80",
+                "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80"
+            ],
+            // Fried/Appetizers
+            "fried": [
+                "https://images.unsplash.com/photo-1599599810694-b5ac4dd12b2f?w=500&q=80",
+                "https://images.unsplash.com/photo-1574021663033-899a0d63da79?w=500&q=80",
+                "https://images.unsplash.com/photo-1585238341710-4b51d3f4f2e9?w=500&q=80"
+            ],
+            // Vegetables/Salad
+            "vegetable": [
+                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80",
+                "https://images.unsplash.com/photo-1635328978559-3e5cd476c79a?w=500&q=80",
+                "https://images.unsplash.com/photo-1543621521-a60d183f60f3?w=500&q=80"
+            ],
+            // Beverages/Drinks
+            "drink": [
+                "https://images.unsplash.com/photo-1606312519331-379a858e3cb7?w=500&q=80",
+                "https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=500&q=80",
+                "https://images.unsplash.com/photo-1618733479857-2cded9e7f43d?w=500&q=80"
+            ],
+            // Bread items
+            "bread": [
+                "https://images.unsplash.com/photo-1535920527894-b86f559ec1cc?w=500&q=80",
+                "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80",
+                "https://images.unsplash.com/photo-1558636508-e0db3814a69e?w=500&q=80"
+            ]
+        };
+
+        function getImageForDish(dishName) {
+            const nameLower = dishName.toLowerCase();
+            
+            // Find matching category
+            if (nameLower.includes('burger') || nameLower.includes('whopper') || nameLower.includes('sandwich')) {
+                const images = dishImageMap.burger;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('pizza')) {
+                const images = dishImageMap.pizza;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('chicken') || nameLower.includes('bbq')) {
+                const images = dishImageMap.chicken;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('curry') || nameLower.includes('butter') || nameLower.includes('tikka')) {
+                const images = dishImageMap.curry;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('biryani') || nameLower.includes('rice')) {
+                const images = dishImageMap.rice;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('noodle') || nameLower.includes('chow')) {
+                const images = dishImageMap.noodles;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('sushi') || nameLower.includes('roll') || nameLower.includes('sashimi')) {
+                const images = dishImageMap.sushi;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('steak') || nameLower.includes('salmon') || nameLower.includes('ribeye')) {
+                const images = dishImageMap.steak;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('samosa') || nameLower.includes('spring') || nameLower.includes('fries')) {
+                const images = dishImageMap.fried;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('vegetable') || nameLower.includes('salad')) {
+                const images = dishImageMap.vegetable;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('lassi') || nameLower.includes('soda') || nameLower.includes('drink')) {
+                const images = dishImageMap.drink;
+                return images[Math.floor(Math.random() * images.length)];
+            } else if (nameLower.includes('bread') || nameLower.includes('garlic')) {
+                const images = dishImageMap.bread;
+                return images[Math.floor(Math.random() * images.length)];
+            } else {
+                // Default random image
+                const allImages = Object.values(dishImageMap).flat();
+                return allImages[Math.floor(Math.random() * allImages.length)];
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            checkAuth();
+            const urlParams = new URLSearchParams(window.location.search);
+            const restaurantId = urlParams.get('id');
+
+            if (!restaurantId) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Fetch restaurant details
+            const restaurantDetails = await fetchRestaurantDetails(restaurantId);
+            if (restaurantDetails) {
+                document.getElementById('restaurant-title').textContent = `${restaurantDetails.name}`;
+                document.getElementById('restaurant-desc').textContent = restaurantDetails.description || 'Discover delicious cuisines prepared with fresh ingredients';
+                document.title = `${restaurantDetails.name} - Food Delivery`;
+            }
+
+            const menu = await fetchMenu(restaurantId);
+            const grid = document.getElementById('menu-grid');
+            const loading = document.getElementById('loading');
+            const noItems = document.getElementById('no-items');
+
+            loading.style.display = 'none';
+
+            if (menu.length === 0) {
+                noItems.style.display = 'block';
+                return;
+            }
+
+            menu.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                const imgUrl = getImageForDish(item.name);
+
+                card.innerHTML = `
+                    <div class="menu-img" style="background-image: url('${imgUrl}');"></div>
+                    <div class="menu-content">
+                        <div class="menu-title">${item.name}</div>
+                        <div class="menu-desc">${item.description || 'Delicious authentic dish prepared with fresh ingredients.'}</div>
+                        <div class="menu-price">
+                            <span class="menu-price-symbol">₹</span>${item.price}
+                        </div>
+                        <button class="btn add-to-cart-btn" onclick="addToCart(${restaurantId}, ${item.id}, 1)">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+
+</html>

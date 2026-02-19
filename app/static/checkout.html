@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Food Delivery</title>
+    <link rel="stylesheet" href="styles.css" <script src="app.js" defer>
+    </script>
+</head>
+
+<body style="background-color: #f5f5f5;">
+    <div id="toast-container"></div>
+
+    <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h1>🛒 CHECKOUT</h1>
+        <nav>
+            <a href="dashboard.html" style="color: #fff;">Back to Home</a>
+            <a href="cart.html" style="color: #fff; position: relative;">
+                🛒
+                <span id="cart-badge"
+                    style="position: absolute; top: -8px; right: -10px; background: #ff5722; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem;">0</span>
+            </a>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #ffd700;">Logout</a>
+        </nav>
+    </header>
+
+    <div class="checkout-container">
+
+        <!-- Product Items Section (Top) -->
+        <div id="checkout-items"></div>
+
+        <div class="shopur-grid">
+            <!-- Payment Methods (Left) -->
+            <div class="payment-card">
+                <div class="payment-header">
+                    <span>PAYMENT METHODS</span>
+                    <span>-</span>
+                </div>
+                <div class="payment-content">
+                    <label class="shopur-option">
+                        <input type="radio" name="payment" value="cod">
+                        Cash On Delivery
+                    </label>
+                    <label class="shopur-option">
+                        <input type="radio" name="payment" value="paypal">
+                        Paypal
+                    </label>
+                    <label class="shopur-option">
+                        <input type="radio" name="payment" value="stripe" checked>
+                        Stripe
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Details (Right) -->
+            <div class="payment-card">
+                <div class="price-header">
+                    <span>PRICE DETAILS</span>
+                </div>
+                <div class="price-content">
+                    <div class="price-row">
+                        <div class="price-bar"></div>
+                        <div class="price-bar"></div>
+                    </div>
+                    <div class="price-row">
+                        <div class="price-bar" style="width: 100px;"></div>
+                        <div class="price-bar"></div>
+                    </div>
+
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #eee;">
+
+                    <div class="price-row" style="margin-bottom: 0;">
+                        <span style="font-weight: 600; color: #667eea;">Total</span>
+                        <span style="font-weight: 700; font-size: 1.2rem;" id="checkout-total">₹0</span>
+                    </div>
+
+                    <button class="btn-shopur" onclick="finalizeOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // No strict auth check for "ShopUr" mock look, but functionality needs it
+            const token = localStorage.getItem('token');
+            if (!token) {
+                // Mocking guest checkout for UI demo if needed, but let's redirect to align with logic
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart || cart.items.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            document.getElementById('cart-badge').innerText = cart.items.reduce((acc, i) => acc + i.quantity, 0);
+
+            const itemsContainer = document.getElementById('checkout-items');
+            try {
+                const menu = await fetchMenu(cart.restaurantId); // Helper from app.js needs to be accessible ?? 
+                // Wait, app.js functions are not global if I don't import them or if they are checked.
+                // app.js is included.
+
+                let total = 0;
+
+                // Fallback images
+                const foodImages = [
+                    "https://images.unsplash.com/photo-1574071318500-d0d512a86365?w=500&q=80",
+                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80",
+                    "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80"
+                ];
+
+                cart.items.forEach((item, idx) => {
+                    const product = menu.find(m => m.id === item.menu_item_id);
+                    if (!product) return;
+
+                    const itemTotal = product.price * item.quantity;
+                    total += itemTotal;
+
+                    const imgUrl = product.image_url || foodImages[idx % foodImages.length];
+
+                    const row = document.createElement('div');
+                    row.className = 'shopur-row';
+                    row.innerHTML = `
+                         <div style="width: 80px; height: 80px; background-image: url('${imgUrl}'); background-size: cover; border-radius: 8px; margin-right: 1.5rem;"></div>
+                         <div style="flex-grow: 1;">
+                             <h4 style="margin: 0; color: #333;">${product.name}</h4>
+                             <div style="height: 8px; background: #eee; width: 100px; margin-top: 0.5rem; border-radius: 4px;"></div> 
+                         </div>
+                         <div style="margin-right: 3rem; color: #777;">
+                            ${item.quantity}
+                         </div>
+                         <div style="font-weight: 600; color: #667eea;">
+                             ₹${parseInt(itemTotal).toLocaleString('en-IN')}
+                         </div>
+                    `;
+                    itemsContainer.appendChild(row);
+                });
+
+                document.getElementById('checkout-total').innerText = '₹' + parseInt(total).toLocaleString('en-IN');
+
+            } catch (e) {
+                console.error(e);
+            }
+        });
+
+        async function finalizeOrder() {
+            // Re-using placeOrder logic from app.js but adapted
+            // We can just call placeOrder() if it reads from localStorage 'cart'
+            // modifying app.js's placeOrder to optionally redirect to orders.html layout
+
+            // Or better, just copy logic here for specific checkout behavior
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const token = localStorage.getItem('token');
+            const API_URL = "http://localhost:8000"; // Hardcoded for script context if app.js var isn't global enough (it usually is)
+
+            try {
+                const response = await fetch(`${API_URL}/orders/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        restaurant_id: cart.restaurantId,
+                        items: cart.items
+                    })
+                });
+
+                if (response.ok) {
+                    // Show success visually
+                    const btn = document.querySelector('.btn-shopur');
+                    btn.innerHTML = 'Success!';
+                    btn.style.backgroundColor = '#2ecc71';
+
+                    showToast('Order placed successfully!', 'success');
+                    localStorage.removeItem('cart');
+                    setTimeout(() => window.location.href = 'orders.html', 1500);
+                } else {
+                    showToast('Failed to place order', 'error');
+                }
+            } catch (e) {
+                console.error(e);
+                showToast('Connection error', 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>

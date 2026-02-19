@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body style="background: white;">
+    <div id="toast-container"></div>
+
+    <header>
+        <h1><span style="color: var(--primary-color);">Food Delivery</span> HELP</h1>
+        <nav>
+            <a href="dashboard.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="#" style="color: var(--primary-color);">Help</a>
+            <a href="orders.html">Sign In</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="support-hero">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h1 style="margin: 0; font-size: 2.5rem; font-weight: 700;">Help & Support</h1>
+            <p style="margin: 1rem 0 0; font-size: 1.1rem; opacity: 0.9;">Let's take a step ahead and help you better.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="support-container">
+        <!-- Sidebar -->
+        <div class="support-sidebar">
+            <div class="support-nav-item active" onclick="switchTab('onboarding', this)">Partner Onboarding</div>
+            <div class="support-nav-item" onclick="switchTab('legal', this)">Legal</div>
+            <div class="support-nav-item" onclick="switchTab('faqs', this)">FAQs</div>
+        </div>
+
+        <!-- Content -->
+        <div class="support-content" id="support-content-area">
+
+            <!-- Partner Onboarding Content (Default) -->
+            <div id="onboarding-section">
+                <h2 style="margin-top: 0; color: #333; font-size: 1.5rem; border: none;">Partner Onboarding</h2>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>I want to partner my restaurant with Swiggy</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        Please send your details to partner@swiggy.com or visit our partner portal to sign up.
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>What are the mandatory documents needed to list my restaurant?</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        You need FSSAI license, GST number, PAN card, and a cancelled cheque.
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>I want to opt-out from Google reserve</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        You can disable this in your Restaurant Partner app settings under integrations.
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>After I submit all documents, how long will it take to go live?</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        Typically it takes 48-72 hours for verification and menu digitization.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legal Content (Hidden) -->
+            <div id="legal-section" style="display: none;">
+                <h2 style="margin-top: 0; color: #333; font-size: 1.5rem; border: none;">Legal</h2>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Terms of Use</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        Read our terms regarding service usage and liabilities.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Privacy Policy</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        We value your privacy. Read how we handle data.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQs Content (Hidden) -->
+            <div id="faqs-section" style="display: none;">
+                <h2 style="margin-top: 0; color: #333; font-size: 1.5rem; border: none;">FAQs</h2>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Where is my order?</span>
+                        <span class="accordion-icon">v</span>
+                    </div>
+                    <div class="accordion-body">
+                        You can track your order in real-time from the 'Orders' page.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleAccordion(element) {
+            // Close others (optional, image shows single expand usually)
+            // element.parentElement.classList.toggle('active');
+
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // If accordion behavior (one open at a time) is desired:
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function switchTab(section, navItem) {
+            // Update Nav
+            document.querySelectorAll('.support-nav-item').forEach(i => i.classList.remove('active'));
+            navItem.classList.add('active');
+
+            // Hide all sections
+            document.getElementById('onboarding-section').style.display = 'none';
+            document.getElementById('legal-section').style.display = 'none';
+            document.getElementById('faqs-section').style.display = 'none';
+
+            // Show selected
+            document.getElementById(section + '-section').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

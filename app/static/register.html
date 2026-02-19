@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Food Delivery App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .register-header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .register-header .emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .register-header p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            padding-right: 2.5rem;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        select option {
+            color: #2c3e50;
+            background: #fff;
+            padding: 0.5rem;
+        }
+
+        .role-description {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 0.3rem;
+            padding: 0.5rem;
+            background: #f0f3ff;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .role-description.active {
+            display: block;
+        }
+
+        .role-icons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .role-icon {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .role-icon.active {
+            background: #667eea;
+            transform: scale(1.1);
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #ecf0f1;
+        }
+
+        .divider span {
+            position: relative;
+            background: #fff;
+            padding: 0 1rem;
+        }
+
+        .login-section {
+            text-align: center;
+        }
+
+        .login-text {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+        }
+
+        .login-btn:hover {
+            background: #764ba2;
+            color: white;
+            border-color: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                border-radius: 15px;
+                padding: 1.5rem;
+            }
+
+            .register-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .role-icons {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <header>
+        <h1 style="margin: 0; color: white; font-size: 1.2rem;">🍽️ Food Delivery App</h1>
+    </header>
+
+    <div class="register-container">
+        <div class="register-header">
+            <span class="emoji">👥</span>
+            <h1>Create Account</h1>
+            <p>Join our community and start your journey</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regUsername">Full Name</label>
+                <input type="text" id="regUsername" required placeholder="Enter your full name" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="regEmail">Email Address</label>
+                <input type="email" id="regEmail" required placeholder="Enter your email" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" required placeholder="Create a strong password" autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+                <label for="regRole">Select Your Role</label>
+                <select id="regRole" required>
+                    <option value="">Choose your role...</option>
+                    <option value="customer">🛍️ Customer - Order Food</option>
+                    <option value="restaurant">🍳 Restaurant Owner - Manage Menu</option>
+                    <option value="delivery_partner">🚗 Delivery Partner - Deliver Orders</option>
+                    <option value="customer_care">📞 Customer Care - Support Users</option>
+                    <option value="admin">⚙️ Admin - Manage Platform</option>
+                </select>
+
+                <div class="role-description" id="roleDescription">
+                    <strong>Role Details:</strong>
+                    <p id="roleDescText"></p>
+                </div>
+            </div>
+
+            <div class="role-icons">
+                <div class="role-icon" title="Customer" role="customer">🛍️</div>
+                <div class="role-icon" title="Restaurant" role="restaurant">🍳</div>
+                <div class="role-icon" title="Delivery" role="delivery_partner">🚗</div>
+                <div class="role-icon" title="Customer Care" role="customer_care">📞</div>
+                <div class="role-icon" title="Admin" role="admin">⚙️</div>
+            </div>
+
+            <button type="submit" class="register-btn">Create Account</button>
+        </form>
+
+        <div class="divider">
+            <span>Already have an account?</span>
+        </div>
+
+        <div class="login-section">
+            <p class="login-text">Sign in to your existing account</p>
+            <button type="button" class="login-btn" onclick="window.location.href='login.html'">Sign In</button>
+        </div>
+    </div>
+
+    <script>
+        const roleDescriptions = {
+            '': 'Select a role to see details',
+            'customer': 'Browse restaurants, place orders, and track your deliveries in real-time.',
+            'restaurant': 'Manage your menu, prices, and accept orders from customers.',
+            'delivery_partner': 'Accept delivery orders and earn by delivering food to customers.',
+            'customer_care': 'Provide support and assistance to our valued customers.',
+            'admin': 'Manage the entire platform, users, and system settings.'
+        };
+
+        const regRoleSelect = document.getElementById('regRole');
+        const roleDescription = document.getElementById('roleDescription');
+        const roleDescText = document.getElementById('roleDescText');
+        const roleIcons = document.querySelectorAll('.role-icon');
+
+        regRoleSelect.addEventListener('change', (e) => {
+            const selectedRole = e.target.value;
+            roleDescText.textContent = roleDescriptions[selectedRole] || '';
+            
+            if (selectedRole) {
+                roleDescription.classList.add('active');
+            } else {
+                roleDescription.classList.remove('active');
+            }
+
+            // Update icon highlighting
+            roleIcons.forEach(icon => {
+                if (icon.getAttribute('role') === selectedRole) {
+                    icon.classList.add('active');
+                } else {
+                    icon.classList.remove('active');
+                }
+            });
+        });
+
+        roleIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const role = icon.getAttribute('role');
+                regRoleSelect.value = role;
+                regRoleSelect.dispatchEvent(new Event('change'));
+            });
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const role = document.getElementById('regRole').value;
+
+            if (!role) {
+                showToast('Please select a role', 'error');
+                return;
+            }
+
+            await register(username, email, password, role);
+        });
+    </script>
+</body>
+
+</html>

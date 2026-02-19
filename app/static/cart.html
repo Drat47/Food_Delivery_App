@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Food Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .cart-layout {
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .btn-checkout {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .cart-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .cart-img {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .cart-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-rating {
+            color: #f1c40f;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .cart-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+        
+        .cart-remove-btn {
+            background: #ff5252;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .cart-remove-btn:hover {
+            background: #ff1744;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .empty-msg {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #7f8c8d;
+        }
+        
+        .empty-msg h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-shopping {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-shopping:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>🛒 Shopping Cart</h1>
+        <nav>
+            <a href="dashboard.html">Home</a>
+            <a href="cart.html" style="color: #ffd700;">Cart</a>
+            <a href="orders.html">My Orders</a>
+            <a href="#" onclick="logout()" style="margin-left: 2rem; font-size: 0.8rem; color: #ffd700;">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container cart-layout">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Order Summary</h3>
+                <div class="sidebar-box">
+                    <p style="margin: 0 0 1rem; color: #555;">Items in Cart: <span id="cart-count">0</span></p>
+                    <p style="margin: 0 0 1rem; font-weight: bold; font-size: 1.2rem;">Total: ₹<span id="cart-total">0</span></p>
+                    <button class="btn-checkout" style="width: 100%;"
+                        onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                    <div style="margin-top: 1rem; font-size: 0.75rem; color: #999; text-align: center;">
+                        Fast • Secure • Reliable
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-size: 1.8rem; color: #2c3e50;">Your Items</h2>
+            </div>
+
+            <div id="cart-grid" class="cart-grid">
+                <!-- Items will be injected here -->
+            </div>
+
+            <div id="empty-msg" style="display: none;">
+                <div class="empty-msg">
+                    <h3>🛒 Your cart is empty</h3>
+                    <p>Start adding delicious dishes to your cart!</p>
+                    <a href="dashboard.html" class="btn-shopping">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            checkAuth();
+            renderCart();
+        });
+
+        async function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const list = document.getElementById('cart-grid');
+            const emptyMsg = document.getElementById('empty-msg');
+            const countSpan = document.getElementById('cart-count');
+            const totalSpan = document.getElementById('cart-total');
+
+            if (!cart || cart.items.length === 0) {
+                list.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                countSpan.innerText = '0';
+                totalSpan.innerText = '0';
+                return;
+            }
+
+            try {
+                const menu = await fetchMenu(cart.restaurantId);
+                let total = 0;
+                let count = 0;
+
+                list.innerHTML = '';
+
+                // Demo images fallback
+                const foodImages = [
+                    "https://images.unsplash.com/photo-1574071318500-d0d512a86365?w=500&q=80",
+                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80",
+                    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80"
+                ];
+
+                cart.items.forEach((cartItem, idx) => {
+                    const product = menu.find(m => m.id === cartItem.menu_item_id);
+                    if (!product) return;
+
+                    const itemTotal = product.price * cartItem.quantity;
+                    total += itemTotal;
+                    count += cartItem.quantity;
+
+                    const imgUrl = product.image_url || foodImages[idx % foodImages.length];
+
+                    const card = document.createElement('div');
+                    card.className = 'cart-card';
+                    card.innerHTML = `
+                        <div class="cart-img" style="background-image: url('${imgUrl}');">
+                            <div class="cart-badge">x${cartItem.quantity}</div>
+                        </div>
+                        <div class="cart-content">
+                            <div class="cart-title">${product.name}</div>
+                            <div class="cart-rating">★★★★★</div>
+                            <div class="cart-price">₹${parseInt(itemTotal).toLocaleString('en-IN')}</div>
+                            <button class="cart-remove-btn" onclick="removeFromCart(${cartItem.menu_item_id})">Remove</button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+
+                countSpan.innerText = count;
+                totalSpan.innerText = parseInt(total).toLocaleString('en-IN');
+
+            } catch (e) {
+                console.error(e);
+                showToast('Error loading cart details', 'error');
+            }
+        }
+
+        function removeFromCart(itemId) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) return;
+
+            cart.items = cart.items.filter(i => i.menu_item_id !== itemId);
+            if (cart.items.length === 0) {
+                localStorage.removeItem('cart');
+            } else {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+            renderCart();
+            showToast('Item removed', 'info');
+        }
+    </script>
+</body>
+
+</html>
