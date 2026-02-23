@@ -1,4 +1,4 @@
-# 🍽️ HCL Food Delivery Application - Complete Documentation
+# 🍽️ Food Delivery Application - Complete Documentation
 
 > **Production-Ready Full-Stack Food Delivery Platform**  
 > Built with React 18 + Vite (Frontend), FastAPI (Backend), and SQLite (Database)  
@@ -27,7 +27,7 @@
 
 ## 🎯 Project Overview
 
-The HCL Food Delivery Application is a complete full-stack web platform designed to facilitate online food ordering and delivery. It features a modern, responsive user interface built with React 18 and Vite, a robust FastAPI backend, and SQLite database management.
+The Food Delivery Application is a complete full-stack web platform designed to facilitate online food ordering and delivery. It features a modern, responsive user interface built with React 18 and Vite, a robust FastAPI backend, and SQLite database management.
 
 ### Project Highlights
 
@@ -176,11 +176,11 @@ Before starting, ensure you have:
 
 ```bash
 # Navigate to project directory
-cd d:\Dharmesh\HCL-PROJECT-TEST
+cd d:\Dharmesh\PROJECT-TEST
 
 # Or if cloning from repository
 git clone <repository-url>
-cd HCL-PROJECT-TEST
+cd PROJECT-TEST
 ```
 
 ### Step 2: Backend Setup
@@ -288,7 +288,7 @@ Once both servers are running:
 ## 📁 Project Structure
 
 ```
-HCL-PROJECT-TEST/
+PROJECT-TEST/
 │
 ├── app/                                    # ⚙️ BACKEND (FastAPI)
 │   ├── main.py                             # FastAPI app initialization & CORS setup
@@ -927,7 +927,7 @@ python verify_db.py
 
 ## 📄 License
 
-This project is developed as part of HCL Food Delivery System training program.
+This project is developed as part of Food Delivery System training program.
 
 ---
 
