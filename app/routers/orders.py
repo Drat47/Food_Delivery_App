@@ -27,10 +27,13 @@ def place_order(
         total_price += menu_item.price * item.quantity
         db_items.append(models.OrderItem(menu_item_id=item.menu_item_id, quantity=item.quantity, price=menu_item.price))
     
+    # Use total_amount from frontend (with all charges) if provided, otherwise use calculated total
+    final_total = order.total_amount if order.total_amount else total_price
+    
     new_order = models.Order(
         customer_id=current_user.id,
         restaurant_id=order.restaurant_id,
-        total_price=total_price,
+        total_price=final_total,
         status=models.OrderStatus.PENDING
     )
     db.add(new_order)

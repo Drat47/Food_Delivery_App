@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrdersPage from './pages/OrdersPage';
 import AdminDashboard from './pages/AdminDashboard';
+import SupportPage from './pages/SupportPage';
 import Toast from './components/Toast';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
             <Route path="/cart" element={<CartPage handleLogout={handleLogout} />} />
             <Route path="/checkout" element={<CheckoutPage handleLogout={handleLogout} />} />
             <Route path="/orders" element={<OrdersPage handleLogout={handleLogout} />} />
+            <Route path="/support" element={<SupportPage handleLogout={handleLogout} />} />
             {userRole === 'admin' && <Route path="/admin" element={<AdminDashboard handleLogout={handleLogout} />} />}
           </>
         ) : (

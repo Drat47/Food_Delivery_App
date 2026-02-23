@@ -50,6 +50,24 @@ export default function CheckoutPage({ handleLogout }) {
     }, 0);
   };
 
+  const calculateCharges = () => {
+    const subtotal = calculateTotal();
+    const gst = Math.round((subtotal * 18) / 100);
+    const platformCharges = 49;
+    const deliveryFees = 30;
+    const totalCharges = gst + platformCharges + deliveryFees;
+    const grandTotal = subtotal + totalCharges;
+
+    return {
+      subtotal,
+      gst,
+      platformCharges,
+      deliveryFees,
+      totalCharges,
+      grandTotal
+    };
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -64,12 +82,14 @@ export default function CheckoutPage({ handleLogout }) {
 
     setLoading(true);
     try {
+      const charges = calculateCharges();
       const orderData = {
         restaurant_id: cart.restaurantId,
         items: cart.items,
         delivery_address: formData.address,
         phone_number: formData.phone,
         payment_method: formData.paymentMethod,
+        total_amount: charges.grandTotal,
       };
 
       const token = localStorage.getItem('token');
@@ -121,7 +141,7 @@ export default function CheckoutPage({ handleLogout }) {
     );
   }
 
-  const total = calculateTotal();
+  const charges = calculateCharges();
 
   return (
     <div className="page-container">
@@ -131,6 +151,7 @@ export default function CheckoutPage({ handleLogout }) {
           <Link to="/">Home</Link>
           <Link to="/cart">Cart</Link>
           <Link to="/orders">My Orders</Link>
+          <Link to="/support">💬 Help & Support</Link>
           {user && <span className="user-info">Hi, {user}</span>}
           <button onClick={handleLogoutClick} style={{
             background: 'none',
@@ -145,7 +166,7 @@ export default function CheckoutPage({ handleLogout }) {
         </nav>
       </header>
 
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
+      <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '3rem', maxWidth: '100%', padding: '3rem 4rem' }}>
         {/* Checkout Form */}
         <form onSubmit={handlePlaceOrder} className="checkout-form">
           <h2>Delivery Details</h2>
@@ -204,9 +225,34 @@ export default function CheckoutPage({ handleLogout }) {
               );
             })}
 
+            {/* Charges Breakdown */}
+            <div style={{
+              borderTop: '2px solid #667eea',
+              marginTop: '1rem',
+              paddingTop: '1rem',
+              fontSize: '0.9rem'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', fontWeight: '500' }}>
+                <span>Subtotal:</span>
+                <span>₹{charges.subtotal.toLocaleString('en-IN')}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', color: '#666', fontSize: '0.85rem' }}>
+                <span>GST (18%):</span>
+                <span>₹{charges.gst.toLocaleString('en-IN')}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', color: '#666', fontSize: '0.85rem' }}>
+                <span>Platform Charges:</span>
+                <span>₹{charges.platformCharges}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: '#666', fontSize: '0.85rem' }}>
+                <span>Delivery Fees:</span>
+                <span>₹{charges.deliveryFees}</span>
+              </div>
+            </div>
+
             <div className="order-summary-total">
-              <span>Total:</span>
-              <span>₹{total.toLocaleString('en-IN')}</span>
+              <span>Grand Total:</span>
+              <span>₹{charges.grandTotal.toLocaleString('en-IN')}</span>
             </div>
           </div>
 

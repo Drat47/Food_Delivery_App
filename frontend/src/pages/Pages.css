@@ -272,9 +272,9 @@ body {
 
 /* Dashboard */
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem 2rem;
   flex: 1;
 }
 
@@ -292,6 +292,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
   cursor: pointer;
+  will-change: transform;
 }
 
 .restaurant-card:hover {
@@ -305,6 +306,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
+  background-color: #f0f0f0;
 }
 
 .restaurant-badge {
@@ -348,8 +350,8 @@ body {
 
 .cart-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
 }
 
 .cart-card {
@@ -369,10 +371,11 @@ body {
 
 .cart-img {
   width: 100%;
-  height: 180px;
+  height: 220px;
   background-size: cover;
   background-position: center;
   position: relative;
+  background-color: #f0f0f0;
 }
 
 .cart-badge {
@@ -388,24 +391,24 @@ body {
 }
 
 .cart-content {
-  padding: 1.5rem;
+  padding: 2rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .cart-title {
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .cart-price {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--primary-color);
-  margin: 1rem 0;
+  margin: 1.2rem 0;
   flex-grow: 1;
 }
 
@@ -413,12 +416,13 @@ body {
   background: #ff5252;
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1.2rem;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   width: 100%;
+  font-size: 0.95rem;
 }
 
 .cart-btn-remove:hover {
@@ -428,11 +432,12 @@ body {
 .sidebar {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
+  padding: 2.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   height: fit-content;
   position: sticky;
   top: 20px;
+  min-width: 380px;
 }
 
 .sidebar-section {
@@ -440,16 +445,17 @@ body {
 }
 
 .sidebar-title {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .sidebar-box {
   background: #f8f9fa;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 8px;
+  font-size: 1rem;
 }
 
 .sidebar-box p {

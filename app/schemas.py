@@ -25,6 +25,8 @@ class User(UserBase):
 class RestaurantBase(BaseModel):
     name: str
     description: Optional[str] = None
+    address: Optional[str] = None
+    image_url: Optional[str] = None
 
 class RestaurantCreate(RestaurantBase):
     pass
@@ -76,6 +78,7 @@ class OrderBase(BaseModel):
 
 class OrderCreate(OrderBase):
     items: List[OrderItemCreate]
+    total_amount: float = None  # Optional: total with all charges
 
 class Order(OrderBase):
     id: int

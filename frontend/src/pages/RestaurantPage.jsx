@@ -58,20 +58,35 @@ export default function RestaurantPage({ handleLogout }) {
   const getDishImage = (dishName) => {
     const dishLower = dishName.toLowerCase();
     const images = {
-      burger: ['https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=80',
-               'https://images.unsplash.com/photo-1550547990-d5d85ad26ae3?w=300&q=80',
-               'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=300&q=80'],
-      pizza: ['https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&q=80',
-              'https://images.unsplash.com/photo-1558522479-e6d2dfd4e71b?w=300&q=80',
-              'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=300&q=80'],
-      biryani: ['https://images.unsplash.com/photo-1563379091339-03b21ab4a104?w=300&q=80',
-                'https://images.unsplash.com/photo-1585238341710-4913d3a3a48f?w=300&q=80'],
-      sushi: ['https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=300&q=80',
-              'https://images.unsplash.com/photo-1580959375944-abd7e991f971?w=300&q=80'],
-      curry: ['https://images.unsplash.com/photo-1603566438886-609f4ee62e51?w=300&q=80',
-              'https://images.unsplash.com/photo-1516559565752-63ea650e2c2d?w=300&q=80'],
-      noodles: ['https://images.unsplash.com/photo-1569718899523-5e673bf89e72?w=300&q=80',
-                'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=80'],
+      burger: ['https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=250&q=40',
+               'https://images.unsplash.com/photo-1550547990-d5d85ad26ae3?w=250&q=40',
+               'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=250&q=40'],
+      pizza: ['https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=250&q=40',
+              'https://images.unsplash.com/photo-1558522479-e6d2dfd4e71b?w=250&q=40',
+              'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=250&q=40'],
+      biryani: ['https://images.unsplash.com/photo-1563379091339-03b21ab4a104?w=250&q=40',
+                'https://images.unsplash.com/photo-1585238341710-4913d3a3a48f?w=250&q=40'],
+      butter: ['https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=250&q=40',
+               'https://images.unsplash.com/photo-1603566438886-609f4ee62e51?w=250&q=40'],
+      sushi: ['https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=250&q=40',
+              'https://images.unsplash.com/photo-1580959375944-abd7e991f971?w=250&q=40'],
+      curry: ['https://images.unsplash.com/photo-1603566438886-609f4ee62e51?w=250&q=40',
+              'https://images.unsplash.com/photo-1516559565752-63ea650e2c2d?w=250&q=40'],
+      noodles: ['https://images.unsplash.com/photo-1569718899523-5e673bf89e72?w=250&q=40',
+                'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=250&q=40'],
+      steak: ['https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=250&q=40',
+              'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=250&q=40'],
+      salmon: ['https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=250&q=40',
+               'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=250&q=40'],
+      roll: ['https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=250&q=40',
+             'https://images.unsplash.com/photo-1553621042-f6de2442ae8d?w=250&q=40'],
+      fries: ['https://images.unsplash.com/photo-1599599810694-8b8b0b8f0b1d?w=250&q=40',
+              'https://images.unsplash.com/photo-1585238341710-4913d3a3a48f?w=250&q=40'],
+      spring: ['https://images.unsplash.com/photo-1569718899523-5e673bf89e72?w=250&q=40',
+               'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=250&q=40'],
+      samosa: ['https://images.unsplash.com/photo-1585238341710-4913d3a3a48f?w=250&q=40',
+               'https://images.unsplash.com/photo-1603566438886-609f4ee62e51?w=250&q=40'],
+      lassi: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=250&q=40'],
     };
 
     for (const [key, imageArray] of Object.entries(images)) {
@@ -79,7 +94,7 @@ export default function RestaurantPage({ handleLogout }) {
         return imageArray[Math.floor(Math.random() * imageArray.length)];
       }
     }
-    return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&q=80';
+    return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=250&q=40';
   };
 
   const handleAddToCart = (item) => {
@@ -160,6 +175,7 @@ export default function RestaurantPage({ handleLogout }) {
           <Link to="/">Home</Link>
           <Link to="/cart">Cart</Link>
           <Link to="/orders">My Orders</Link>
+          <Link to="/support">💬 Help & Support</Link>
           {user && <span className="user-info">Hi, {user}</span>}
           <button onClick={handleLogoutClick} style={{
             background: 'none',
@@ -178,7 +194,7 @@ export default function RestaurantPage({ handleLogout }) {
         {restaurant && (
           <>
             <div style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1555939594-58d7cb561404?w=1200&q=80)',
+              backgroundImage: `url('${(restaurant.image_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561404?w=500&q=40').replace('w=600', 'w=500').replace('q=80', 'q=40')}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               height: '300px',
@@ -189,11 +205,13 @@ export default function RestaurantPage({ handleLogout }) {
               alignItems: 'flex-end',
               padding: '2rem',
               color: 'white',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              backgroundColor: '#ddd'
             }}>
               <div>
                 <h2 style={{ margin: 0, fontSize: '2.5rem' }}>{restaurant.name}</h2>
                 <p style={{ margin: '0.5rem 0 0' }}>{restaurant.description || 'Delicious food await you'}</p>
+                {restaurant.address && <p style={{ margin: '0.5rem 0 0', fontSize: '0.95rem' }}>📍 {restaurant.address}</p>}
               </div>
             </div>
 

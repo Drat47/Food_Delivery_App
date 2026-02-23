@@ -58,6 +58,7 @@ export default function AdminDashboard({ handleLogout }) {
         <nav>
           <Link to="/admin">Dashboard</Link>
           <Link to="/">Back to Home</Link>
+          <Link to="/support">💬 Help & Support</Link>
           {user && <span className="user-info">Hi, {user}</span>}
           <button onClick={handleLogoutClick} style={{
             background: 'none',

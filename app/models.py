@@ -41,6 +41,8 @@ class Restaurant(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String)
+    address = Column(String, nullable=True)
+    image_url = Column(String, nullable=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
     is_active = Column(Boolean, default=True)
 

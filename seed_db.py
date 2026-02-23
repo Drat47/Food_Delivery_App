@@ -2,8 +2,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database import SQLALCHEMY_DATABASE_URL
-from app.models import Base, User, Restaurant, MenuItem, UserRole
+from app.models import Base, User, Restaurant, MenuItem, UserRole, Order, OrderItem
 from app.utils import get_password_hash
+import sys
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -14,10 +15,20 @@ SessionLocal = sessionmaker(bind=engine)
 db = SessionLocal()
 
 def seed():
+    # Check if force reseed is requested
+    force_reseed = '--force' in sys.argv or '-f' in sys.argv
+    
     # Check if users exist
-    if db.query(User).first():
+    if db.query(User).first() and not force_reseed:
         print("Database already seeded.")
         return
+    
+    # Clear existing data and drop all tables if force reseed
+    if force_reseed:
+        print("Force reseeding database...")
+        Base.metadata.drop_all(bind=engine)
+        Base.metadata.create_all(bind=engine)
+        print("Database schema recreated.")
 
     # Create Users
     admin = User(
@@ -51,37 +62,51 @@ def seed():
     restaurants = [
         Restaurant(
             name="Tasty Bytes",
-            description="Best fast food in town with a cyber twist.",
+            description="Best fast food in town with a cyber twist. Delicious burgers and crispy fries!",
+            address="C-Scheme, Jaipur, Rajasthan - 302001",
+            image_url="https://images.unsplash.com/photo-1550547990-d5d85ad26ae3?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="Pizza Hut Express",
-            description="Authentic Italian pizzas with fresh ingredients.",
+            description="Authentic Italian pizzas with fresh ingredients. Wood-fired perfection in every bite!",
+            address="JLN Road, Jaipur, Rajasthan - 302004",
+            image_url="https://images.unsplash.com/photo-1558522479-e6d2dfd4e71b?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="Spice Route",
-            description="Authentic Indian cuisine with traditional flavors.",
+            description="Authentic Indian cuisine with traditional flavors. Royal Rajasthani heritage dishes!",
+            address="Laxmi Narayan Temple Area, Jaipur, Rajasthan - 302005",
+            image_url="https://images.unsplash.com/photo-1603566438886-609f4ee62e51?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="Dragon Palace",
-            description="Premium Chinese and Asian dishes cooked by expert chefs.",
+            description="Premium Chinese and Asian dishes cooked by expert chefs. Authentic tastes from the East!",
+            address="Tonk Road, Jaipur, Rajasthan - 302015",
+            image_url="https://images.unsplash.com/photo-1569718899523-5e673bf89e72?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="Burger King",
-            description="Quick service fast food with premium ingredients.",
+            description="Quick service fast food with premium ingredients. Flame-grilled perfection!",
+            address="MI Road, Jaipur, Rajasthan - 302001",
+            image_url="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="The Grill House",
-            description="Premium grilled meats and BBQ specialties.",
+            description="Premium grilled meats and BBQ specialties. Smoky, tender, and delicious!",
+            address="Ajmer Road, Jaipur, Rajasthan - 302017",
+            image_url="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=80",
             owner_id=owner.id
         ),
         Restaurant(
             name="Sushi Paradise",
-            description="Fresh Japanese sushi and Asian fusion cuisine.",
+            description="Fresh Japanese sushi and Asian fusion cuisine. Exquisite flavors from Japan!",
+            address="Malviya Nagar, Jaipur, Rajasthan - 302017",
+            image_url="https://images.unsplash.com/photo-1580959375944-abd7e991f971?w=600&q=80",
             owner_id=owner.id
         ),
     ]
