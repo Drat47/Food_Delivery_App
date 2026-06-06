@@ -133,7 +133,7 @@ export default function RestaurantPage({ handleLogout }) {
     return (
       <div className="page-container">
         <header className="header-gradient">
-          <h1>🍽️ Food Delivery</h1>
+          <h1>🍽️ Feastify</h1>
         </header>
         <div style={{ textAlign: 'center', padding: '4rem' }}>
           <p>Loading restaurant...</p>
@@ -149,7 +149,7 @@ export default function RestaurantPage({ handleLogout }) {
     return (
       <div className="page-container">
         <header className="header-gradient">
-          <h1>🍽️ Food Delivery</h1>
+          <h1>🍽️ Feastify</h1>
           <nav>
             <Link to="/">Home</Link>
           </nav>
@@ -170,7 +170,7 @@ export default function RestaurantPage({ handleLogout }) {
   return (
     <div className="page-container">
       <header className="header-gradient">
-        <h1>🍽️ Food Delivery</h1>
+        <h1>🍽️ Feastify</h1>
         <nav>
           <Link to="/">Home</Link>
           <Link to="/cart">Cart</Link>

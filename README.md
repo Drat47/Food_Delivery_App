@@ -1,998 +1,401 @@
-# 🍽️ Food Delivery Application - Complete Documentation
+# 🍽️ Feastify - Full-Stack Food Delivery Platform
 
-> **Production-Ready Full-Stack Food Delivery Platform**  
-> Built with React 18 + Vite (Frontend), FastAPI (Backend), and SQLite (Database)  
-> Optimized for Performance | Fully Tested | Ready to Deploy
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62B)](https://vitejs.dev/)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://food-delivery-app-cvr1.vercel.app/)
+[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://food-delivery-app-9me0.onrender.com)
+[![Author](https://img.shields.io/badge/Author-Dharmesh%20Singhal-blue?style=for-the-badge)](https://github.com/dharmesh-singhal)
+
+A modern, production-ready, high-performance **Full-Stack Food Delivery Application** built with React 18, Vite, FastAPI, and SQLite. Featuring JWT authorization, role-based access, comprehensive cart management, tax and delivery fee calculations, order tracking, and a dynamic admin control panel.
+
+---
+
+## 🔗 Live Deployments
+
+Experience the live application online using the following links:
+
+| Component | Platform | URL |
+| :--- | :--- | :--- |
+| **Frontend Application** | ⚡ Vercel | [https://food-delivery-app-cvr1.vercel.app/](https://food-delivery-app-cvr1.vercel.app/) |
+| **Backend API Server** | ☁️ Render | [https://food-delivery-app-9me0.onrender.com](https://food-delivery-app-9me0.onrender.com) |
+| **Interactive API Docs** | 📖 Swagger UI | [https://food-delivery-app-9me0.onrender.com/docs](https://food-delivery-app-9me0.onrender.com/docs) |
 
 ---
 
 ## 📋 Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Key Features](#key-features)
-3. [Technology Stack](#technology-stack)
-4. [Installation & Setup](#installation--setup)
-5. [Running the Application](#running-the-application)
-6. [Project Structure](#project-structure)
-7. [API Documentation](#api-documentation)
-8. [Database Schema](#database-schema)
-9. [Features in Detail](#features-in-detail)
-10. [Recent Updates](#recent-updates)
-11. [Testing & Verification](#testing--verification)
-12. [Troubleshooting](#troubleshooting)
-13. [Performance Optimization](#performance-optimization)
-14. [Future Enhancements](#future-enhancements)
+1. [Project Overview](#-project-overview)
+2. [Key Features](#-key-features)
+3. [Technology Stack](#-technology-stack)
+4. [Project Structure](#-project-structure)
+5. [Installation & Setup](#-installation--setup)
+6. [Running the Application](#-running-the-application)
+7. [API Documentation](#-api-documentation)
+8. [Database Schema](#-database-schema)
+9. [Detailed Walkthrough](#-detailed-walkthrough)
+10. [Recent Updates](#-recent-updates)
+11. [Performance Optimization](#-performance-optimization)
+12. [Troubleshooting](#-troubleshooting)
+13. [Future Enhancements](#-future-enhancements)
+14. [Author](#-author)
 
 ---
 
 ## 🎯 Project Overview
 
-The Food Delivery Application is a complete full-stack web platform designed to facilitate online food ordering and delivery. It features a modern, responsive user interface built with React 18 and Vite, a robust FastAPI backend, and SQLite database management.
+Feastify is designed to replicate the seamless experience of modern food ordering apps. The system features a responsive frontend, a high-throughput async backend API with SQLAlchemy ORM, and is optimized for low page load speeds using smart image compression and browser local caching strategies.
 
 ### Project Highlights
 
-| Aspect | Details |
-|--------|---------|
-| **Architecture** | Full-Stack MERN-like with React + FastAPI |
-| **Frontend** | React 18 with Vite, Modern CSS, Responsive Design |
-| **Backend** | FastAPI with SQLAlchemy ORM, JWT Authentication |
-| **Database** | SQLite with 7 Pre-seeded Restaurants |
-| **Status** | ✅ Production Ready (Last Updated: Feb 20, 2026) |
-| **Performance** | Optimized Images, Fast Load Times |
-| **Authentication** | JWT Tokens with Role-Based Access Control |
+| Metric / Aspect | Value |
+| :--- | :--- |
+| **Architecture** | Full-Stack SPA with Decoupled Frontend/Backend |
+| **Frontend UI** | React 18 (Vite), Pure CSS3 (Responsive Design) |
+| **Backend API** | FastAPI (Python) with SQLAlchemy ORM |
+| **Database** | SQLite with 7 Pre-seeded Restaurants & 30+ Dishes |
+| **Authorization** | Secure JWT Auth with Role-Based Access Controls (RBAC) |
+| **Performance** | Optimized images (~70% size reduction) |
 
 ---
 
 ## 🚀 Key Features
 
-### 1. **User Authentication & Authorization**
-- ✅ Secure JWT-based authentication
-- ✅ Password hashing with bcrypt
-- ✅ Three user roles: Customer, Restaurant Owner, Admin
-- ✅ Persistent token storage in localStorage
-- ✅ Protected routes with authentication guards
-- ✅ Sample credentials for testing
+### 🔐 1. User Authentication & Authorization
+* **Secure JWT Tokens** for all protected API calls.
+* **Password Hashing** with bcrypt (`passlib`).
+* **Role-Based Access Control (RBAC)** supporting 3 dedicated roles:
+  * **Customer:** Browse, add to cart, place orders, track order history.
+  * **Restaurant Owner:** Add/manage menus and view orders.
+  * **Admin:** System-wide management dashboard.
+* Secure persistent state handled via browser `localStorage`.
 
-### 2. **Restaurant Management**
-- ✅ Browse 7 pre-seeded restaurants
-- ✅ View detailed restaurant information
-- ✅ Restaurant addresses in **Jaipur, Rajasthan**
-- ✅ High-quality restaurant banner images
-- ✅ Representative dish images for each cuisine type
-- ✅ Real-time menu availability status
+### 🏪 2. Restaurant & Menu Management
+* **7 Pre-seeded Restaurants** based in **Jaipur, Rajasthan** with authentic location listings.
+* Beautiful high-resolution banner images and custom signature dish classification.
+* Interactive menus with real-time dish availability toggles.
 
-### 3. **Menu & Food Items**
-- ✅ 30+ menu items across all restaurants
-- ✅ Detailed item descriptions and prices (in INR)
-- ✅ Optimized food images (fast loading)
-- ✅ Cuisine-based image classification
-- ✅ Item availability tracking
-- ✅ Price display in Indian Rupees
+### 🛒 3. Interactive Shopping Cart
+* High-performance, reactive cart state using native React hooks.
+* **Smart Isolation:** Carts are bound to individual restaurants to prevent cross-restaurant ordering errors.
+* Local storage persistence ensures users don't lose items on page refreshes.
+* Screen-fitting design accommodating larger viewing sizes and desktop interfaces.
 
-### 4. **Shopping Cart**
-- ✅ Add/remove items dynamically
-- ✅ Quantity management (0-10 items per product)
-- ✅ Real-time price calculations
-- ✅ Cart persistence in browser localStorage
-- ✅ Restaurant-specific cart isolation
-- ✅ Visual feedback with toast notifications
-- ✅ **Screen-fitting UI with larger containers**
+### 🧾 4. Transparent Checkout & Billing
+* Interactive billing checkout wizard.
+* **Comprehensive Price Breakdown:**
+  * Subtotal calculation in Indian Rupees (₹)
+  * **GST (Goods & Services Tax)** at standard 18%
+  * **Platform Fee:** Flat ₹49
+  * **Delivery Charges:** Flat ₹30
+* Instant order confirmations with a unique Order ID and payment method selections (Card, UPI, Wallet, COD).
 
-### 5. **Order Management & Checkout**
-- ✅ Comprehensive checkout form
-- ✅ Delivery address validation
-- ✅ Phone number verification
-- ✅ Multiple payment methods (Card, UPI, Wallet, COD)
-- ✅ **Smart charge calculations:**
-  - Subtotal calculation
-  - 18% GST (Goods and Services Tax)
-  - ₹49 Platform Charges
-  - ₹30 Delivery Fees
-  - Grand Total with transparent breakdown
-- ✅ Order confirmation with order ID
+### 📍 5. Order Tracking & Detail View
+* Complete historical orders panel.
+* Detailed modal view displaying restaurant information, delivery address, phone numbers, items ordered, payment method, and complete billing details.
+* Dynamic status updates: `Pending`, `Accepted`, `Preparing`, `Out for Delivery`, `Delivered`.
 
-### 6. **Order Tracking & History**
-- ✅ View complete order history
-- ✅ **Click orders for detailed view** including:
-  - Order number and status
-  - Items ordered with quantities
-  - Restaurant name
-  - Delivery address and phone
-  - Payment method
-  - **Complete bill breakdown (subtotal, GST, charges)**
-  - Order date and time
-- ✅ Order status tracking (Pending, Accepted, Preparing, Out for Delivery, Delivered)
-- ✅ Visual status badges with color coding
-
-### 7. **Admin Dashboard**
-- ✅ Restaurant management interface
-- ✅ User account administration
-- ✅ Order monitoring and status updates
-- ✅ Sales analytics and reports
-- ✅ Menu item management
-
-### 8. **UI/UX Enhancements**
-- ✅ Responsive design (mobile, tablet, desktop)
-- ✅ Smooth animations and transitions
-- ✅ Toast notifications for user feedback
-- ✅ Loading states and skeleton screens
-- ✅ **Optimized image loading (70% smaller images)**
-  - Reduced quality parameters (q=40)
-  - Optimized dimensions (w=250-300)
-  - Instant loading with placeholder colors
-- ✅ Professional color scheme (Purple-Blue gradient)
-- ✅ Accessible form inputs and buttons
+### 🖥️ 6. Admin Panel
+* View registered users and update orders status.
+* Live sales statistics and operations monitor.
 
 ---
 
 ## 🛠️ Technology Stack
 
-### **Frontend Stack**
+### Frontend
+* **React 18.2.0** — Reactive Component UI Library
+* **Vite 5.x** — Fast and lightweight bundling/dev server
+* **React Router DOM 6.20.0** — Single Page Application (SPA) client-side routing
+* **Vanilla CSS3** — Fully customized design tokens and components without framework bloat
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| React | 18.2.0+ | UI Library |
-| Vite | 5.0.0+ | Build Tool & Dev Server |
-| React Router | 6.20.0+ | Client-side Navigation |
-| CSS3 | Latest | Styling (No CSS framework) |
-| JavaScript (ES6+) | Latest | Core Language |
-| localStorage API | Native | Client-side Storage |
+### Backend
+* **FastAPI** — High-performance pythonic ASGI web framework
+* **Uvicorn** — Lightning-fast ASGI server implementation
+* **SQLAlchemy** — Standard Python SQL toolkit and Object Relational Mapper (ORM)
+* **Pydantic** — Strict data validation and settings management
+* **Python-Jose & Bcrypt** — Token creation, verification, and password security
 
-### **Backend Stack**
+### Databases & Tools
+* **SQLite** — Lightweight, zero-config SQL engine
+* **GitHub Pages / Vercel** — Frontend hosting
+* **Render** — Backend hosting
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| FastAPI | Latest | Web Framework |
-| Uvicorn | Latest | ASGI Server |
-| SQLAlchemy | Latest | ORM & Database Toolkit |
-| SQLite | Built-in | Database Engine |
-| Pydantic | Latest | Data Validation |
-| python-jose | Latest | JWT Token Handling |
-| bcrypt | Latest | Password Hashing |
+---
 
-### **Development Tools**
+## 📁 Project Structure
 
-| Tool | Purpose |
-|------|---------|
-| Python 3.8+ | Backend Runtime |
-| Node.js 16+ | Frontend Tooling |
-| npm | Package Management |
-| Git | Version Control |
-| Postman | API Testing |
+```text
+PROJECT-TEST/
+├── app/                                    # ⚙️ BACKEND (FastAPI)
+│   ├── main.py                             # API entrypoint, CORS configuration
+│   ├── database.py                         # SQLite connection & session makers
+│   ├── models.py                           # SQLAlchemy Database Schemas
+│   ├── schemas.py                          # Pydantic schemas (Request / Response validation)
+│   ├── utils.py                            # Encryption utilities & passwords hashing
+│   └── routers/                            # API Endpoint Routers
+│       ├── auth.py                         # Registration and Authentication
+│       ├── restaurant.py                   # Restaurant retrieval & menu services
+│       ├── orders.py                       # Checkout & order status operations
+│       └── admin.py                        # Analytics and operations override
+│
+├── frontend/                               # ⚛️ FRONTEND (React + Vite)
+│   ├── src/
+│   │   ├── App.jsx                         # Routing entry structure
+│   │   ├── main.jsx                        # React root setup
+│   │   ├── index.css                       # Modern Global CSS system
+│   │   ├── pages/                          # App Pages (Dashboard, Checkout, Admin, etc.)
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── RegisterPage.jsx
+│   │   │   ├── DashboardPage.jsx
+│   │   │   ├── RestaurantPage.jsx
+│   │   │   ├── CartPage.jsx
+│   │   │   ├── CheckoutPage.jsx
+│   │   │   ├── OrdersPage.jsx
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   └── Pages.css                   # Custom styles for views
+│   │   ├── components/                     # Reusable layout fragments (e.g. Toast)
+│   │   └── services/
+│   │       └── apiService.js               # Centralized backend API fetching utility
+│   ├── vite.config.js                      # Dev-server & compilation configurations
+│   ├── index.html                          # Entry viewport DOM
+│   └── .env                                # Production Backend Environment URL
+│
+├── food_delivery.db                        # Active SQLite Database File
+├── seed_db.py                              # Database seeder (Prepopulates mock data)
+├── verify_db.py                            # Verifies schema integrity & test users
+├── start.bat                               # Windows all-in-one execution batch
+└── start.sh                                # Unix/Mac application launcher shell
+```
 
 ---
 
 ## 💾 Installation & Setup
 
 ### Prerequisites
+* **Python 3.8+** installed
+* **Node.js 16+** and **npm** installed
 
-Before starting, ensure you have:
-- **Python 3.8 or higher** installed
-- **Node.js 16+ and npm** installed
-- **Git** for version control
-- **~500MB free disk space** for dependencies
-
-### Step 1: Clone & Navigate to Project
-
+### Step 1: Clone the repository
 ```bash
-# Navigate to project directory
-cd d:\Dharmesh\PROJECT-TEST
-
-# Or if cloning from repository
 git clone <repository-url>
-cd PROJECT-TEST
+cd Food_Delivery_App-main
 ```
 
 ### Step 2: Backend Setup
-
+Create your virtual environment, install python dependencies, and initialize the SQLite database with mock data.
 ```bash
-# Install Python dependencies
+# Install backend requirements
 pip install fastapi uvicorn sqlalchemy passlib[bcrypt] python-jose python-multipart
 
-# Initialize the database with sample data
+# Seed the database
 python seed_db.py
 
-# Verify setup completed successfully
+# Verify the database creation
 python verify_db.py
 ```
 
-**Expected Output:**
-```
+*Expected Seeder Output:*
+```text
 Database seeded successfully!
-Users created:
- - admin / password
- - owner / password
- - customer / password
+Created users:
+ - Admin: admin / password
+ - Owner: owner / password
+ - Customer: customer / password
 ```
 
 ### Step 3: Frontend Setup
-
+Navigate into the React source and install local dependencies.
 ```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install npm dependencies
 npm install
-
-# Return to project root
 cd ..
-```
-
-### Step 4: Verify Installation
-
-```bash
-# Check Python version
-python --version
-
-# Check Node.js version
-node --version
-
-# Check npm version
-npm --version
 ```
 
 ---
 
 ## 🚀 Running the Application
 
-### **Option 1: Interactive Startup (Windows Batch File)**
+### Option 1: All-in-One Startup Script (Recommended)
+You can start both frontend development servers and backend API routers concurrently using the provided scripts.
 
-```bash
-# From project root directory
-.\start.bat
-```
+* **On Windows:**
+  ```cmd
+  .\start.bat
+  ```
+* **On Linux / MacOS:**
+  ```bash
+  chmod +x start.sh
+  ./start.sh
+  ```
 
-This automatically:
-1. Seeds the database with 7 restaurants and 30+ menu items
-2. Starts the FastAPI backend server
-3. Installs frontend dependencies (if needed)
-4. Starts the React development server
+### Option 2: Manual Start (Development Mode)
 
-### **Option 2: Manual Startup (Recommended for Development)**
+* **Terminal 1 (Backend):**
+  ```bash
+  python -m uvicorn app.main:app --reload
+  ```
+  * API local server: `http://localhost:8000`
+  * API Interactive docs: `http://localhost:8000/docs`
 
-**Terminal 1 - Start Backend:**
-```bash
-python -m uvicorn app.main:app --reload
-```
-- Backend URL: `${import.meta.env.VITE_API_URL}`
-- API Documentation: `${import.meta.env.VITE_API_URL}/docs` (Interactive Swagger UI)
-
-**Terminal 2 - Start Frontend:**
-```bash
-cd frontend
-npm run dev
-```
-- Frontend URL: `http://localhost:5173`
-- Hot Module Replacement enabled for instant updates
-
-### **Option 3: Production Build**
-
-```bash
-# Build frontend for production
-cd frontend
-npm run build
-
-# Serve production build locally
-npm run preview
-```
-
-### Application Access
-
-Once both servers are running:
-- **Frontend**: Open `http://localhost:5173` in your browser
-- **API Docs**: Open `${import.meta.env.VITE_API_URL}/docs` for interactive API documentation
-- **API**: Backend available at `${import.meta.env.VITE_API_URL}`
-
----
-
-## 📁 Project Structure
-
-```
-PROJECT-TEST/
-│
-├── app/                                    # ⚙️ BACKEND (FastAPI)
-│   ├── main.py                             # FastAPI app initialization & CORS setup
-│   ├── database.py                         # SQLAlchemy configuration
-│   ├── models.py                           # Database models (User, Restaurant, Order, etc)
-│   ├── schemas.py                          # Pydantic validation schemas
-│   ├── utils.py                            # Utility functions (password hashing, etc)
-│   │
-│   ├── routers/
-│   │   ├── auth.py                         # POST /auth/login, /auth/register
-│   │   ├── restaurant.py                   # GET /restaurants, /restaurants/{id}/menu
-│   │   ├── orders.py                       # POST/GET /orders, order management
-│   │   └── admin.py                        # Admin endpoints
-│   │
-│   ├── static/                             # Legacy static files
-│   ├── templates/                          # Legacy templates
-│   └── __pycache__/                        # Python cache
-│
-├── frontend/                               # ⚛️ FRONTEND (React + Vite)
-│   ├── src/
-│   │   ├── App.jsx                         # Main app with React Router
-│   │   ├── main.jsx                        # React entry point
-│   │   ├── index.css                       # Global styles
-│   │   │
-│   │   ├── pages/                          # Page components
-│   │   │   ├── LoginPage.jsx               # User login form
-│   │   │   ├── RegisterPage.jsx            # User registration form
-│   │   │   ├── DashboardPage.jsx           # Restaurant listing (with dish images)
-│   │   │   ├── RestaurantPage.jsx          # Restaurant details & menu
-│   │   │   ├── CartPage.jsx                # Shopping cart (with charges breakdown)
-│   │   │   ├── CheckoutPage.jsx            # Order checkout (with detailed billing)
-│   │   │   ├── OrdersPage.jsx              # Order history & detailed view
-│   │   │   ├── AdminDashboard.jsx          # Admin panel
-│   │   │   ├── SupportPage.jsx             # Help & support
-│   │   │   └── Pages.css                   # Page-specific styling
-│   │   │
-│   │   ├── components/
-│   │   │   ├── Toast.jsx                   # Toast notification component
-│   │   │   └── Toast.css                   # Toast styling
-│   │   │
-│   │   └── services/
-│   │       └── apiService.js               # Centralized API calls (optional)
-│   │
-│   ├── package.json                        # npm dependencies & scripts
-│   ├── vite.config.js                      # Vite configuration
-│   ├── index.html                          # HTML template
-│   └── node_modules/                       # Installed dependencies
-│
-├── food_delivery.db                        # SQLite database (auto-created)
-│
-├── seed_db.py                              # Database initialization with sample data
-├── verify_db.py                            # Database integrity verification
-├── check_server.py                         # Server status checker
-├── check_data.py                           # Data validation script
-├── test_hash.py                            # Password hashing tests
-├── update_images.py                        # Image utility
-│
-├── start.bat                               # Windows startup script (all servers)
-├── run_app.bat                             # Windows batch runner
-├── start.sh                                # Linux/Mac startup script
-│
-├── README.md                               # Original README
-├── README_DETAILED.md                      # This detailed documentation
-├── CONVERSION_SUMMARY.md                   # Conversion notes (Vanilla JS → React)
-├── REACT_SETUP.md                          # React setup guide
-│
-└── .gitignore                              # Git ignore rules
-```
+* **Terminal 2 (Frontend):**
+  ```bash
+  cd frontend
+  npm run dev
+  ```
+  * React Local Development: `http://localhost:5173`
 
 ---
 
 ## 📡 API Documentation
 
-### **Base URL**
-```
-http://127.0.0.1:8000
-```
+FastAPI automatically generates an interactive Swagger UI documentation website.
 
-### **Interactive API Documentation**
-```
-http://127.0.0.1:8000/docs (Swagger UI)
-http://127.0.0.1:8000/redoc (ReDoc)
-```
+* **Local Docs:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* **Production Docs:** [https://food-delivery-app-9me0.onrender.com/docs](https://food-delivery-app-9me0.onrender.com/docs)
 
-### **Authentication Endpoints**
+### Primary API Routes
 
-#### Register New User
-```http
-POST /auth/register
-Content-Type: application/json
+#### 🔑 Authentication
+* `POST /auth/register` — Register new credentials
+* `POST /auth/login` — Exchange credentials for a JWT Token (OAuth2 Form compatible)
 
-{
-  "username": "newuser",
-  "email": "user@example.com",
-  "password": "secure_password",
-  "role": "customer"
-}
+#### 🏪 Restaurant Services
+* `GET /restaurants` — Returns all active restaurants with location & banners
+* `GET /restaurants/{id}` — Returns a specific restaurant configuration
+* `GET /restaurants/{id}/menu` — List menu food items for the restaurant
 
-Response: 200 OK
-{
-  "id": 4,
-  "username": "newuser",
-  "email": "user@example.com",
-  "role": "customer",
-  "is_active": true
-}
-```
-
-#### Login
-```http
-POST /auth/login
-Content-Type: application/x-www-form-urlencoded
-
-username=customer&password=password
-
-Response: 200 OK
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIs...",
-  "token_type": "bearer"
-}
-```
-
-### **Restaurant Endpoints**
-
-#### Get All Restaurants
-```http
-GET /restaurants
-
-Response: 200 OK
-[
-  {
-    "id": 1,
-    "name": "Tasty Bytes",
-    "description": "Best fast food in town with a cyber twist. Delicious burgers and crispy fries!",
-    "address": "C-Scheme, Jaipur, Rajasthan - 302001",
-    "image_url": "https://images.unsplash.com/...",
-    "owner_id": 2,
-    "is_active": true
-  },
-  ...
-]
-```
-
-#### Get Restaurant Details
-```http
-GET /restaurants/{restaurant_id}
-
-Response: 200 OK
-{
-  "id": 1,
-  "name": "Tasty Bytes",
-  "description": "Best fast food in town with a cyber twist. Delicious burgers and crispy fries!",
-  "address": "C-Scheme, Jaipur, Rajasthan - 302001",
-  "image_url": "https://images.unsplash.com/...",
-  "owner_id": 2,
-  "is_active": true
-}
-```
-
-#### Get Restaurant Menu
-```http
-GET /restaurants/{restaurant_id}/menu
-
-Response: 200 OK
-[
-  {
-    "id": 1,
-    "name": "Cyber Burger",
-    "description": "Juicy beef patty with neon sauce",
-    "price": 1099.0,
-    "image_url": "https://images.unsplash.com/...",
-    "restaurant_id": 1,
-    "is_available": true
-  },
-  ...
-]
-```
-
-### **Order Endpoints**
-
-#### Place New Order
-```http
-POST /orders
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "restaurant_id": 1,
-  "items": [
-    {"menu_item_id": 1, "quantity": 2},
-    {"menu_item_id": 3, "quantity": 1}
-  ],
-  "total_amount": 2459.0
-}
-
-Response: 201 Created
-{
-  "id": 5,
-  "customer_id": 3,
-  "restaurant_id": 1,
-  "status": "pending",
-  "total_price": 2459.0,
-  "created_at": "2026-02-20T10:30:00",
-  "items": [...]
-}
-```
-
-#### Get User's Orders
-```http
-GET /orders
-Authorization: Bearer <token>
-
-Response: 200 OK
-[
-  {
-    "id": 1,
-    "customer_id": 3,
-    "restaurant_id": 1,
-    "status": "pending",
-    "total_price": 2459.0,
-    "created_at": "2026-02-20T10:30:00",
-    "items": [...]
-  },
-  ...
-]
-```
-
-#### Get Order Details
-```http
-GET /orders/{order_id}
-Authorization: Bearer <token>
-
-Response: 200 OK
-{
-  "id": 1,
-  "customer_id": 3,
-  "restaurant_id": 1,
-  "status": "pending",
-  "total_price": 2459.0,
-  "created_at": "2026-02-20T10:30:00",
-  "items": [
-    {
-      "id": 1,
-      "order_id": 1,
-      "menu_item_id": 1,
-      "quantity": 2,
-      "price": 1099.0
-    }
-  ]
-}
-```
+#### 🛍️ Order Management
+* `POST /orders` — Register checkout items & compute platform taxes/charges
+* `GET /orders` — Fetch active user's order history
+* `GET /orders/{id}` — Query granular items, status updates, and invoice breakdowns
 
 ---
 
 ## 💾 Database Schema
 
-### **Users Table**
-```python
-class User(Base):
-    id: int, primary_key
-    username: str (unique)
-    email: str (unique)
-    hashed_password: str
-    role: enum (ADMIN, CUSTOMER, RESTAURANT_OWNER)
-    is_active: bool
-```
+The SQLite schema represents relation mappings managed via SQLAlchemy.
 
-### **Restaurants Table**
-```python
-class Restaurant(Base):
-    id: int, primary_key
-    name: str
-    description: str
-    address: str (Jaipur, Rajasthan)
-    image_url: str (CDN link)
-    owner_id: int (FK to User)
-    is_active: bool
-```
+```mermaid
+erDiagram
+    USER ||--o{ RESTAURANT : "owns"
+    USER ||--o{ ORDER : "places"
+    RESTAURANT ||--o{ MENU_ITEM : "contains"
+    RESTAURANT ||--o{ ORDER : "receives"
+    ORDER ||--o{ ORDER_ITEM : "lists"
+    MENU_ITEM ||--o{ ORDER_ITEM : "ordered_in"
 
-### **Menu Items Table**
-```python
-class MenuItem(Base):
-    id: int, primary_key
-    name: str
-    description: str
-    price: float (in INR)
-    image_url: str (optimized food images)
-    restaurant_id: int (FK to Restaurant)
-    is_available: bool
-```
-
-### **Orders Table**
-```python
-class Order(Base):
-    id: int, primary_key
-    customer_id: int (FK to User)
-    restaurant_id: int (FK to Restaurant)
-    status: enum (PENDING, ACCEPTED, PREPARING, OUT_FOR_DELIVERY, DELIVERED)
-    total_price: float (with all charges)
-    created_at: datetime
-```
-
-### **Order Items Table**
-```python
-class OrderItem(Base):
-    id: int, primary_key
-    order_id: int (FK to Order)
-    menu_item_id: int (FK to MenuItem)
-    quantity: int
-    price: float (price at time of order)
+    USER {
+        int id PK
+        string username
+        string email
+        string hashed_password
+        string role
+        boolean is_active
+    }
+    RESTAURANT {
+        int id PK
+        string name
+        string description
+        string address
+        string image_url
+        int owner_id FK
+        boolean is_active
+    }
+    MENU_ITEM {
+        int id PK
+        string name
+        string description
+        float price
+        string image_url
+        int restaurant_id FK
+        boolean is_available
+    }
+    ORDER {
+        int id PK
+        int customer_id FK
+        int restaurant_id FK
+        string status
+        float total_price
+        datetime created_at
+    }
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int menu_item_id FK
+        int quantity
+        float price
+    }
 ```
 
 ---
 
-## 🎨 Features in Detail
+## 🎨 Detailed Walkthrough
 
-### **Shopping Cart with Transparent Pricing**
-
-The cart page displays a complete breakdown of all charges:
-
+### Smart Shopping Invoice Breakdown
+When checking out, the billing card presents a calculated invoice mimicking actual taxes standard in India:
+```text
+Subtotal (Sum of Items)     :  ₹1,200.00
+-----------------------------------------
+GST (18% Service Tax)       :  ₹216.00
+Platform Charge (Standard)  :  ₹49.00
+Delivery Fees (Vary/Flat)   :  ₹30.00
+-----------------------------------------
+Grand Total Invoice         :  ₹1,495.00
 ```
-Subtotal:              ₹1000
-─────────────────────────────
-GST (18%):             ₹180
-Platform Charges:      ₹49
-Delivery Fees:         ₹30
-─────────────────────────────
-Grand Total:           ₹1259
-```
-
-### **Restaurant Display Features**
-
-#### Restaurant Listing (Dashboard)
-- Restaurant banner image (high-quality)
-- Signature dish image below banner showing cuisine type
-- Restaurant name
-- Description
-- Jaipur address with 📍 icon
-- 5-star rating display
-
-#### Restaurant Details Page
-- Full-width restaurant banner
-- Restaurant address and description
-- Menu items with:
-  - Dish images (optimized for fast loading)
-  - Item names and descriptions
-  - Price in INR
-  - Quantity selector (0-10)
-  - "Add to Cart" button
-
-### **Order Details & Tracking**
-
-When clicking on an order in "My Orders", users can see:
-- Order ID and status
-- Order date and time
-- Restaurant name
-- All items ordered with quantities
-- Complete bill breakdown:
-  - Subtotal
-  - GST (18%)
-  - Platform charges
-  - Delivery fees
-  - **Grand total (matching checkout)**
-- Delivery address and phone
-- Payment method used
-
-### **Image Optimization**
-
-All images are optimized for fast loading:
-
-| Type | Size | Quality | Loading |
-|------|------|---------|---------|
-| Restaurant Banner | 300px width | q=40 | ~25KB |
-| Dish Images | 250px width | q=40 | ~20KB |
-| Signature Dish | 250px width | q=40 | ~20KB |
-
-**Result**: ~70% smaller than original images while maintaining visual quality
-
----
-
-## 📝 Recent Updates (February 20, 2026)
-
-### **New Features Added**
-
-#### 1. Restaurant Address Management
-- ✅ Added `address` field to Restaurant model
-- ✅ All 7 restaurants have Jaipur, Rajasthan addresses
-- ✅ Displays on both restaurant list and detail pages
-
-#### 2. Restaurant & Dish Images
-- ✅ Added `image_url` field to Restaurant model
-- ✅ Cuisine-specific images for each restaurant
-- ✅ Representative dish images in restaurant listings
-- ✅ High-quality food images for all menu items
-- ✅ Optimized image URLs for fast loading
-
-#### 3. Shopping Cart Charges
-- ✅ GST (18%) calculation
-- ✅ Platform charges (₹49)
-- ✅ Delivery fees (₹30)
-- ✅ Transparent breakdown in cart summary
-- ✅ Grand total calculation
-
-#### 4. Order Total Preservation
-- ✅ Cart total sent to backend during checkout
-- ✅ Order stored with complete charge breakdown
-- ✅ Charges recalculated on order view
-- ✅ Exact match between checkout and order page
-
-#### 5. Order Details View
-- ✅ Click orders to see complete details
-- ✅ Items list with quantities
-- ✅ Bill breakdown with all charges
-- ✅ Delivery and payment information
-- ✅ Restaurant name display
-
-#### 6. UI/UX Improvements
-- ✅ Screen-fitting cart layout
-- ✅ Larger card containers (320px minimum)
-- ✅ Better spacing and typography
-- ✅ Improved responsive design
-- ✅ Enhanced hover effects on order cards
-- ✅ Toast notifications for user feedback
-
-#### 7. Performance Optimization
-- ✅ Image size reduction (70% smaller)
-- ✅ Quality parameters optimized (q=40)
-- ✅ Faster page load times
-- ✅ Reduced bandwidth usage
-- ✅ Placeholder colors while loading
-
----
-
-## ✅ Testing & Verification
-
-### **Default Test Credentials**
-
-| Role | Username | Password | Email |
-|------|----------|----------|-------|
-| Customer | customer | password | customer@example.com |
-| Admin | admin | password | admin@example.com |
-| Owner | owner | password | owner@example.com |
-
-### **Sample Data**
-
-#### 7 Restaurants (with Jaipur addresses)
-1. **Tasty Bytes** - C-Scheme, Jaipur (Burgers & Fast Food)
-2. **Pizza Hut Express** - JLN Road, Jaipur (Italian Pizza)
-3. **Spice Route** - Laxmi Narayan Temple Area, Jaipur (Indian Cuisine)
-4. **Dragon Palace** - Tonk Road, Jaipur (Chinese Food)
-5. **Burger King** - MI Road, Jaipur (Premium Burgers)
-6. **The Grill House** - Ajmer Road, Jaipur (Grilled Specialties)
-7. **Sushi Paradise** - Malviya Nagar, Jaipur (Japanese Sushi)
-
-#### 30+ Menu Items
-- 4+ items per restaurant
-- Prices ranging from ₹199 to ₹2099
-- Detailed descriptions
-- Cuisine-specific images
-- Full availability tracking
-
-### **API Endpoints Verified**
-
-| Endpoint | Method | Status | Response Time |
-|----------|--------|--------|----------------|
-| /restaurants | GET | ✅ 200 | <50ms |
-| /restaurants/{id} | GET | ✅ 200 | <50ms |
-| /restaurants/{id}/menu | GET | ✅ 200 | <75ms |
-| /auth/login | POST | ✅ 200 | <100ms |
-| /auth/register | POST | ✅ 201 | <100ms |
-| /orders | POST | ✅ 201 | <150ms |
-| /orders | GET | ✅ 200 | <100ms |
-| /orders/{id} | GET | ✅ 200 | <100ms |
-
----
-
-## 🔧 Troubleshooting
-
-### **Issue: Frontend not loading**
-
-**Solution:**
-```bash
-# Verify Node.js installation
-node --version
-npm --version
-
-# Clear npm cache
-npm cache clean --force
-
-# Reinstall dependencies
-cd frontend
-rm -rf node_modules package-lock.json
-npm install
-
-# Start dev server
-npm run dev
-```
-
-### **Issue: Backend not responding**
-
-**Solution:**
-```bash
-# Check if port 8000 is in use
-netstat -ano | findstr :8000
-
-# Kill process using port 8000
-taskkill /PID <PID> /F
-
-# Restart backend
-python -m uvicorn app.main:app --reload
-```
-
-### **Issue: Database errors**
-
-**Solution:**
-```bash
-# Delete existing database
-del food_delivery.db
-
-# Reseed database
-python seed_db.py
-
-# Verify database
-python verify_db.py
-```
-
-### **Issue: CORS errors**
-
-**Solution:**
-- Ensure backend is running on `http://127.0.0.1:8000`
-- Frontend requests `http://127.0.0.1:8000` (not localhost)
-- Check CORS configuration in `app/main.py`
-
-### **Issue: Images not loading**
-
-**Solution:**
-- Clear browser cache (Ctrl+Shift+Delete)
-- Check internet connection (images from Unsplash CDN)
-- Verify image URLs are correct in seeds
-- Wait a moment for images to load (CDN latency)
+This final breakdown is stored on the database to ensure historic records always show exact billing amounts correctly.
 
 ---
 
 ## ⚡ Performance Optimization
 
-### **Current Performance Metrics**
+1. **Optimized Image Processing Pipeline**
+   * Pre-configured image width parameters (`w=250-300px`) and compressed quality settings (`q=40`) using modern cloud CDN links.
+   * Decreased overall asset sizes by **~70%** (average under 25KB per dish card), reducing bandwidth costs and boosting core web vitals.
+2. **Bundle Trimming**
+   * Leveraged Vite's native Rollup compiler for tree-shaking dead components out of the compilation bundle.
+3. **Database Constraints**
+   * Structured indices on Foreign Key paths (`restaurant_id`, `customer_id`) to maintain snappy query runtimes (sub-50ms query averages).
 
-| Metric | Value | Target |
-|--------|-------|--------|
-| Page Load Time | <2s | <3s ✅ |
-| API Response Time | 50-150ms | <200ms ✅ |
-| Image Load Time | <1s | <2s ✅ |
-| Frontend Bundle | ~200KB | <300KB ✅ |
-| Database Query Time | <100ms | <200ms ✅ |
+---
 
-### **Optimization Techniques Used**
+## 🔧 Troubleshooting
 
-1. **Image Optimization**
-   - Reduced dimensions (w=250-300px)
-   - Lower quality parameters (q=40)
-   - Placeholder colors while loading
-   - Lazy loading support
+### Clear Database Resets
+If mock data gets corrupted or you need to wipe local records:
+```bash
+# Windows
+del food_delivery.db
+python seed_db.py
 
-2. **Frontend Optimization**
-   - Vite for fast builds
-   - Code splitting
-   - Tree shaking
-   - CSS optimization
-   - Dynamic imports
+# Linux / macOS
+rm food_delivery.db
+python seed_db.py
+```
 
-3. **Backend Optimization**
-   - SQLAlchemy query optimization
-   - Connection pooling
-   - Caching support
-   - Efficient routing
-
-4. **Database Optimization**
-   - Indexed foreign keys
-   - Efficient queries
-   - Proper data types
-   - VACUUM and ANALYZE commands
+### CORS Policies Issues
+Make sure the frontend `.env` contains the correct API deployment URL. If working locally:
+1. Open `frontend/.env` and update `VITE_API_URL` to point to `http://127.0.0.1:8000`.
+2. Restart the Vite development environment server.
 
 ---
 
 ## 🚀 Future Enhancements
-
-### **Planned Features**
-- [ ] Real-time order tracking with WebSockets
-- [ ] Payment gateway integration (Razorpay/Stripe)
-- [ ] Email notifications for orders
-- [ ] SMS notifications via Twilio
-- [ ] Restaurant rating and reviews
-- [ ] User profile management
-- [ ] Address book/saved addresses
-- [ ] Promo codes and discounts
-- [ ] Favorites/bookmarks system
-- [ ] Analytics dashboard for restaurants
-
-### **Technical Improvements**
-- [ ] PostgreSQL migration for scalability
-- [ ] Redis caching for performance
-- [ ] Docker containerization
-- [ ] Kubernetes deployment
-- [ ] CI/CD pipeline with GitHub Actions
-- [ ] Comprehensive Unit & Integration Tests
-- [ ] API rate limiting
-- [ ] Advanced error handling
+* [ ] Real-time order tracking using WebSockets APIs.
+* [ ] Live payment gateway test implementations (Stripe / Razorpay).
+* [ ] Email & SMS order receipts using Twilio and Sendgrid.
+* [ ] User profiles editing and user address-book support.
 
 ---
 
-## 📞 Support & Debugging
+## 👤 Author
 
-### **Debug Mode**
-
-**Frontend Debugging:**
-- Open browser DevTools (F12)
-- Check Console tab for errors
-- Inspect Network tab for API calls
-- Check Application tab for localStorage
-
-**Backend Debugging:**
-- Check terminal output for errors
-- Use `--reload` flag for auto-restart
-- Access `/docs` endpoint for API testing
-- Enable logging in `app/main.py`
-
-### **Getting Help**
-
-1. Check the logs in browser console and backend terminal
-2. Verify database is seeded: `python seed_db.py`
-3. Confirm both servers are running
-4. Check API responses in `/docs`
-5. Review this documentation for similar issues
+**Dharmesh Singhal**
+* **Role:** Lead Full-Stack Developer / Architect
+* **Live App:** [Vercel Deployment](https://food-delivery-app-cvr1.vercel.app/)
+* **Github:** [@dharmesh-singhal](https://github.com/dharmesh-singhal)
 
 ---
 
-## 📄 License
-
-This project is developed as part of Food Delivery System training program.
-
----
-
-## 👥 Contributors
-
-- **Backend Development**: FastAPI implementation with SQLAlchemy ORM
-- **Frontend Development**: React 18 conversion with modern UI/UX
-- **Database Management**: SQLite with comprehensive seed data
-- **Documentation**: Complete setup and API documentation
-
----
-
-## 📊 Project Statistics
-
-| Component | Details |
-|-----------|---------|
-| **Lines of Code** | ~5,000+ |
-| **React Components** | 10+ |
-| **API Endpoints** | 15+ |
-| **Database Tables** | 5 |
-| **Pre-seeded Data** | 7 restaurants, 30+ items |
-| **Images** | 50+ optimized images |
-| **Development Time** | 3+ weeks |
-| **Test Coverage** | All endpoints verified |
-
----
-
-## 🔗 Useful Links
-
-- **React Documentation**: https://react.dev
-- **Vite Documentation**: https://vitejs.dev
-- **FastAPI Documentation**: https://fastapi.tiangolo.com
-- **SQLAlchemy Documentation**: https://docs.sqlalchemy.org
-- **Unsplash Images**: https://unsplash.com
-
----
-
-**Last Updated**: February 20, 2026  
-**Status**: ✅ Production Ready  
-**Version**: 2.0.0
-
----
-
-## 📌 Quick Reference
-
-### Start Application
-```bash
-.\start.bat          # Windows
-./start.sh           # Linux/Mac
-```
-
-### Access Points
-- Frontend: `http://localhost:5173`
-- Backend API: `http://127.0.0.1:8000`
-- API Docs: `http://127.0.0.1:8000/docs`
-
-### Test Credentials
-- Username: `customer`
-- Password: `password`
-
-### Database Reset
-```bash
-python seed_db.py --force
-```
-
----
-
-**For more information, contact the development team or refer to specific documentation files in the project root.**
+*Feastify is maintained for education, portfolio work, and demonstration applications.*

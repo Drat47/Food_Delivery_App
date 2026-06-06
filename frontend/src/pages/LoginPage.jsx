@@ -59,7 +59,7 @@ export default function LoginPage({ setIsAuthenticated, setUserRole }) {
   return (
     <div className="page-container">
       <header className="header-gradient">
-        <h1>🍽️ Food Delivery</h1>
+        <h1>🍽️ Feastify</h1>
       </header>
 
       <div className="login-container">

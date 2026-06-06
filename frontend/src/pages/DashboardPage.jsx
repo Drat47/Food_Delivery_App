@@ -81,7 +81,7 @@ export default function DashboardPage({ handleLogout }) {
   return (
     <div className="page-container">
       <header className="header-gradient">
-        <h1>🍽️ Food Delivery</h1>
+        <h1>🍽️ Feastify</h1>
         <nav>
           <Link to="/">Home</Link>
           <Link to="/cart">Cart</Link>

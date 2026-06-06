@@ -9,7 +9,7 @@ from .routers import auth, admin, restaurant, orders
 # Create database tables
 models.Base.metadata.create_all(bind=database.engine)
 
-app = FastAPI(title="Food Delivery App")
+app = FastAPI(title="Feastify API")
 
 # CORS
 app.add_middleware(
@@ -39,4 +39,4 @@ def get_db():
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Food Delivery App API. Go to /static/index.html to view the app."}
+    return {"message": "Welcome to the Feastify API. Go to /docs to view interactive documentation."}
